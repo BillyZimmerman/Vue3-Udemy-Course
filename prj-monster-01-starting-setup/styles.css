@@ -8,14 +8,14 @@ html {
 
 body {
   margin: 0;
-  background-color: #6b78ad;
+  background-color: #b7beda;
 }
 
 header {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 0.5rem;
-  background-color: #880017;
-  color: white;
+  background-color: #33328e;
+  color: rgb(186, 213, 253);
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -24,6 +24,11 @@ section {
   width: 90%;
   max-width: 40rem;
   margin: auto;
+}
+
+h2 {
+  background-color: #3373c6;
+  border-radius: 1em;
 }
 
 .healthbar {
@@ -63,8 +68,8 @@ section {
 
 button {
   font: inherit;
-  border: 1px solid #88005b;
-  background-color: #88005b;
+  border: 1px solid #ff0000;
+  background-color: #640143;
   color: white;
   padding: 1rem 2rem;
   border-radius: 12px;
