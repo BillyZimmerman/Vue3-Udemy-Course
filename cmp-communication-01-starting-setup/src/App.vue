@@ -14,6 +14,7 @@
         :email-address="friend.email"
         :is-favorite="friend.isFavorite"
         @toggle-favorite="toggleFavoriteStatus"
+        @remove="removeFriend"
       ></friend-contact>
     </ul>
   </section>
@@ -59,6 +60,9 @@ export default {
       };
       this.friends.push(newFriendContact);
     },
+    removeFriend(friendId) {
+      this.friends = this.friends.filter((friend) => friend.id !== friendId);
+    },
   },
 };
 </script>
@@ -69,6 +73,7 @@ export default {
 }
 html {
   font-family: "Jost", sans-serif;
+  background-color: rgb(181, 174, 253);
 }
 body {
   margin: 0;
@@ -84,8 +89,9 @@ header {
   width: 90%;
   max-width: 40rem;
 }
-form {
-  background-color: #c6b8d5;
+form,
+li {
+  background-color: #c192f3;
 }
 #app ul {
   margin: 0;
