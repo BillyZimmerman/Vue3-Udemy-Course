@@ -3,18 +3,17 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <new-friend @add-friend="addFriend"></new-friend>
     <ul>
       <friend-contact
-        name="Kelsey Zimmerman"
-        phone-number="123-4356-9876"
-        email-address="kelsey@yahoo.com"
-        is-favorite="1"
-      ></friend-contact>
-      <friend-contact
-        name="Luis Torres"
-        phone-number="893-4996-9876"
-        email-address="luis@yahoo.com"
-        is-favorite="0"
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
       ></friend-contact>
     </ul>
   </section>
@@ -26,19 +25,40 @@ export default {
     return {
       friends: [
         {
-          id: "manuel",
-          name: "Manuel Lorenz",
-          phone: "0123 45678 90",
-          email: "manuel@localhost.com",
+          id: "kelsey",
+          name: "Kelsey Zimmerman",
+          phone: "(012)3456-7890",
+          email: "kelsey@localhost.com",
+          isFavorite: true,
         },
         {
-          id: "julie",
-          name: "Julie Jones",
-          phone: "0987 654421 21",
-          email: "julie@localhost.com",
+          id: "Luis",
+          name: "Luis Torres",
+          phone: "(098)1652-2121",
+          email: "luis@localhost.com",
+          isFavorite: false,
         },
       ],
     };
+  },
+  methods: {
+    toggleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+      // alert("This works");
+    },
+    addFriend(name, phone, email) {
+      const newFriendContact = {
+        id: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        isFavorite: false,
+      };
+      this.friends.push(newFriendContact);
+    },
   },
 };
 </script>
@@ -64,12 +84,16 @@ header {
   width: 90%;
   max-width: 40rem;
 }
+form {
+  background-color: #c6b8d5;
+}
 #app ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -88,15 +112,37 @@ header {
   font: inherit;
   cursor: pointer;
   border: 1px solid #ff0077;
-  background-color: #ff0077;
+  /* background-color: #ff0077; */
   color: white;
   padding: 0.05rem 1rem;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
 }
 #app button:hover,
 #app button:active {
-  background-color: #ec3169;
+  /* background-color: #ec3169; */
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+.buttonOne {
+  background-color: #58004d;
+}
+
+.buttonTwo {
+  background-color: #ec3169;
+}
+
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 0.1rem;
+  width: 4rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>

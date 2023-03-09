@@ -1,8 +1,8 @@
 <template>
   <li>
-    <h2>{{ name }} {{ friendIsFavorite === "1" ? "(Best Friend )" : "" }}</h2>
-    <button @click="toggleFavorite">Toggle Favorite</button>
-    <button @click="toggleDetails">
+    <h2>{{ name }} {{ isFavorite ? "(Best Friend )" : "" }}</h2>
+    <button @click="toggleFavorite" class="buttonOne">Toggle Favorite</button>
+    <button @click="toggleDetails" class="buttonTwo">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
     </button>
     <ul v-if="detailsAreVisible">
@@ -22,6 +22,10 @@
 export default {
   // props: ["name", "phoneNumber", "emailAddress", "isFavorite"],
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -35,25 +39,30 @@ export default {
       required: true,
     },
     isFavorite: {
-      type: String,
+      type: Boolean,
       required: false,
-      default: "0",
-      validator: function (value) {
-        return value === "1" || value === "0";
-      },
+      default: false,
+      // validator: function (value) {
+      //   return value === "1" || value === "0";
+      // },
     },
   },
+
+  emits: ["toggle-favorite"],
+  // emits: {
+  //   "toggle-favorite": function (id) {
+  //     if (id) {
+  //       return true;
+  //     } else {
+  //       console.warn("Id is missing");
+  //       return false;
+  //     }
+  //   },
+  // },
 
   data() {
     return {
       detailsAreVisible: false,
-      friend: {
-        id: "kelsey",
-        name: "Kelsey Zimmerman",
-        phone: "012 3456 7890",
-        email: "kelsey@localhost.com",
-      },
-      friendIsFavorite: this.isFavorite,
     };
   },
   methods: {
@@ -61,11 +70,7 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      if (this.friendIsFavorite === "1") {
-        this.friendIsFavorite = "0";
-      } else {
-        this.friendIsFavorite = "1";
-      }
+      this.$emit("toggle-favorite", this.id);
     },
   },
 };
